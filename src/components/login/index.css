@@ -1,0 +1,86 @@
+
+*:focus{outline: none;}
+input{outline:none !important;}
+input:focus{outline:none !important;}
+
+.login-row {
+  position: fixed;
+  height: 100%;
+  width: 100%;
+  background: #eee
+}
+.login-row .logo {
+  width: 247px;
+  height: 110px;
+  line-height: 110px;
+  font-size: inherit;
+  margin: 0 auto 40px;
+}
+.login-row .logo img{ display: block;}
+.login_tit{margin: 2rem 0; text-align: center;font-family: PingFangSC-Regular;font-size:18px ;color: #333333;}
+
+.login-row .logo span {
+  display: none;
+}
+
+.login-row .login-form {
+  padding: 60px 100px;
+  background: #fff;
+  border-radius: 6px;
+  text-align: center;
+}
+.login-row .ant-form-item{margin-bottom: 10px;}
+
+.login-row .ant-input-affix-wrapper{
+  width: 300px;
+}
+.login-row .login-form .btn-login {
+  background: #af9474;
+  border-color:#af9474;
+  width: 300px;
+  margin-top: 10px;
+}
+
+.login-row .ant-input-affix-wrapper .ant-input {
+  min-height: auto;
+  border-top: none;
+  border-left: none;
+  border-right: none;
+  background: none;
+}
+.login-row .ant-input-affix-wrapper .ant-input:-webkit-autofill{
+  -webkit-box-shadow: 0 0 0px 1000px white inset;
+  border-radius: 0 4px 4px 0;
+}
+
+.login-row .forget-password{
+  text-align: center;
+  margin-top: 10px;
+  overflow: hidden;
+}
+/*.floatLeft{float: left;}*/
+.floatRight{margin-left: 10px}
+
+.set-pwd-modal{
+  padding: 10px;
+}
+
+.set-pwd-div{
+  margin-top: 10px;
+}
+.set-pwd-div .ant-input-group-addon {
+   padding: 0;
+   border: 0;
+}
+
+.set-pwd-div .ant-input-group .ant-input-affix-wrapper {
+   float: none;
+}
+.set-pwd-div .ant-input-affix-wrapper .ant-input {
+  min-height: 0;
+  border-top: none;
+  border-left: none;
+  border-right: none;
+  background: none;
+  /**/
+}

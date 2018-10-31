@@ -1,0 +1,28 @@
+.search_span {
+  display: inline-block;
+  line-height: 28px;
+  margin-right: 10px;
+  margin-bottom: 10px;
+}
+
+.search_span label {
+  margin-right: 5px;
+  font-size: 12px;
+}
+
+.search_span input {
+  width: auto !important;
+}
+
+.search_span textarea {
+  width: 160px
+}
+
+.search_span .ant-select {
+  width: 160px
+}
+
+.ant-switch-checked{
+  border-color: #C0A176;
+  background: #C0A176;
+}

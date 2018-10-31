@@ -1,0 +1,29 @@
+.collapse-td {
+  padding: 0px;
+}
+
+.cxp_table{
+  font-size: 12px;
+}
+
+.cxp_table .ant-table{
+  font-size: 12px !important;
+}
+
+.btn-operate {
+  margin-right: 10px;
+  background: #4a5064;
+  border-color: #4a5064;
+  font-size: 13px;
+}
+
+.operate-div {
+  height: 28px;
+  margin-bottom: 9px;
+}
+
+.operate-div .ant-btn-primary:hover, .ant-btn-primary:focus {
+  color: #fff;
+  background-color: #373d41;
+  border-color: #373d41;
+}

@@ -1,0 +1,10 @@
+.editable-cell-icon-check {
+  font-size: 20px;
+  cursor: pointer;
+  margin-left: 5px;
+  margin-top: 2px;
+}
+
+.editable-cell-icon-check:hover{
+  color: rgb(16, 142, 233);
+}

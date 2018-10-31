@@ -1,0 +1,34 @@
+
+
+.uni-form .ant-form-inline .ant-form-item {
+  width: 25%;
+  margin-bottom: 10px;
+}
+.uni-form .ant-form-inline .ant-form-item-with-help {
+  margin-bottom: 24px;
+}
+
+.uni-form .ant-form-item-label{
+  width: 25%;
+}
+
+.uni-form .ant-form-item-control-wrapper{
+  width: 75%;
+}
+.uni-form .form-button{
+  padding-left: 100px;
+  padding-top: 10px;
+}
+
+.uni-form .ant-card-head{
+  height: 40px;
+  line-height: 30px
+}
+.uni-form .ant-card-head-title{
+  font-size: 16px;
+  line-height: 2.5;
+}
+
+.uni-form .ant-card-body {
+  padding: 10px 0px !important;
+}
