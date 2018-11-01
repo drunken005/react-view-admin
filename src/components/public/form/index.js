@@ -20,7 +20,7 @@ const FormItem = Form.Item,
     RadioGroup = Radio.Group,
     RadioButton = Radio.Button;
 
-const UniForm = Form.create({
+const PublicForm = Form.create({
     onFieldsChange(props, changedFields) {
         let {dataSource} = props;
         let obj = {}, changedField = {};
@@ -45,10 +45,10 @@ const UniForm = Form.create({
         let {dataSource = {}, fields} = props;
         let obj = {};
         _.each(fields, (v, key)=> {
-            obj[key] = {
+            obj[key] = Form.createFormField({
                 ...fields[key],
-                value: dataSource[key]
-            }
+                value:  dataSource[key]
+            });
         });
         return obj;
     },
@@ -206,4 +206,4 @@ const UniForm = Form.create({
     );
 });
 
-export default UniForm;
+export default PublicForm;

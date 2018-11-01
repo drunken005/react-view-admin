@@ -20,5 +20,9 @@ export const CONSTANTS = {
         rowSelection: {type: 'checkbox'},
         exportExcel: true,
         a_pagination: true
+    },
+    EXCHANGE_STATUS: {
+        normal: '正常',
+        freeze: '冻结'
     }
 };

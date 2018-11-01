@@ -67,8 +67,16 @@
     background: #333744 !important;
 }
 
+.ant-menu-item a{
+    font-size: 12px !important;
+}
+
 .ant-menu-dark .ant-menu-inline.ant-menu-sub {
     background: rgba(0, 0, 0, 0.24);
+}
+
+.ant-menu-dark  .ant-menu-submenu-title{
+    font-size: 13px !important;
 }
 
 .cxp-breadcrumb{

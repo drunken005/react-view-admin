@@ -10,6 +10,10 @@
   font-size: 12px;
 }
 
+.search_span .ant-select{
+  font-size: 12px !important;
+}
+
 .search_span input {
   width: auto !important;
 }
@@ -20,6 +24,10 @@
 
 .search_span .ant-select {
   width: 160px
+}
+
+.search_span .ant-input{
+  font-size: 12px !important;
 }
 
 .ant-switch-checked{

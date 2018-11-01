@@ -1,29 +1,37 @@
 .collapse-td {
-  padding: 0px;
+    padding: 0px;
 }
 
-.cxp_table{
-  font-size: 12px;
+.cxp_table {
+    font-size: 12px;
 }
 
-.cxp_table .ant-table{
-  font-size: 12px !important;
+.cxp_table .ant-table {
+    font-size: 12px !important;
+}
+
+.cxp_table .ant-table a {
+    color: #0000ffa6 !important;
+}
+
+.cxp_table .ant-table a:hover {
+    color: #3db389 !important;
 }
 
 .btn-operate {
-  margin-right: 10px;
-  background: #4a5064;
-  border-color: #4a5064;
-  font-size: 13px;
+    margin-right: 10px;
+    background: #4a5064;
+    border-color: #4a5064;
+    font-size: 12px;
 }
 
 .operate-div {
-  height: 28px;
-  margin-bottom: 9px;
+    height: 28px;
+    margin-bottom: 9px;
 }
 
 .operate-div .ant-btn-primary:hover, .ant-btn-primary:focus {
-  color: #fff;
-  background-color: #373d41;
-  border-color: #373d41;
+    color: #fff;
+    background-color: #373d41;
+    border-color: #373d41;
 }

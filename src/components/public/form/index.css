@@ -10,6 +10,7 @@
 
 .uni-form .ant-form-item-label{
   width: 25%;
+  font-size: 12px;
 }
 
 .uni-form .ant-form-item-control-wrapper{
@@ -25,10 +26,22 @@
   line-height: 30px
 }
 .uni-form .ant-card-head-title{
-  font-size: 16px;
-  line-height: 2.5;
+  font-size: 15px;
+  line-height: 1.2;
+  font-weight: bolder;
 }
 
 .uni-form .ant-card-body {
-  padding: 10px 0px !important;
+  /*padding: 10px 0px !important;*/
+}
+
+.uni-form .ant-input{
+  font-size: 12px !important;
+}
+.uni-form .ant-form label{
+  font-size: 13px !important;
+}
+
+.uni-form .ant-form-item{
+  font-size: 12px !important;
 }

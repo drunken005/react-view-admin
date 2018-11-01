@@ -6,7 +6,7 @@ export const CXP_MENUS = [
         role: ''
     },
     {
-        icon: 'medicine-box',
+        icon: 'interation',
         name: '交易所管理',
         role: 'exchange',
         children: [
@@ -23,7 +23,7 @@ export const CXP_MENUS = [
         ]
     },
     {
-        icon: 'pay-circle-o',
+        icon: 'dollar',
         name: '交易管理',
         route: 'mail',
         role: 'mail',
@@ -43,7 +43,7 @@ export const CXP_MENUS = [
         ]
     },
     {
-        icon: 'user',
+        icon: 'team',
         name: '用户管理',
         route: 'user',
         role: 'users',
