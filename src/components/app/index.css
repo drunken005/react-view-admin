@@ -83,3 +83,22 @@
     background: #4a506470;
     padding: 6px;
 }
+
+/*.ant-dropdown-menu{*/
+    /*background: rgb(55, 61, 65) !important*/
+/*}*/
+
+
+.link-button {
+    background-color: transparent;
+    border: none;
+    cursor: pointer;
+    display: inline;
+    margin: 0;
+    padding: 0;
+    color: #0000ffa6;
+}
+.link-button:hover,
+.link-button:focus {
+    color: #1DA57A;
+}

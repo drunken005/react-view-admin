@@ -1,8 +1,8 @@
 import React from 'react';
-import BaseComponent from '../BaseComponent';
-import {Notification} from '../antd_extension';
+import BaseComponent from '../../../BaseComponent';
+import {Notification} from '../../../antd_extension';
 import {Modal, Spin} from 'antd';
-import PublicForm from '../public/form';
+import PublicForm from '../../../public/form';
 import _ from 'lodash';
 import MongoHelpers from 'mongo-helpers';
 import EJSON from 'ejson';
@@ -11,49 +11,19 @@ const confirm = Modal.confirm;
 
 const mapf = {
     name: {
-        label: '交易所名称',
+        label: '角色名称',
         type: 'input',
         required: true
     },
-    short_name: {
-        label: '交易所简称',
-        type: 'input',
-        required: true
-    },
-    logo: {
-        label: 'logo',
-        type: 'input',
-        required: true
-    },
-    address: {
-        label: '交易所地址',
-        type: 'input',
-        required: true
-    },
-    contact_name: {
-        label: '联系人姓名',
-        type: 'input',
-        required: true
-    },
-    contact_mobile: {
-        label: '联系人电话',
-        type: 'input',
-        required: true
-    },
-    website: {
-        label: '交易所官网',
-        type: 'input',
-        required: true
-    },
-    account: {
-        label: 'CXP账户名',
+    desc: {
+        label: '描述',
         type: 'input',
         required: true
     }
 };
 
 
-export default class ExchangeForm extends BaseComponent {
+export default class SettingsRoleForm extends BaseComponent {
 
     constructor(props) {
         super(props);
@@ -68,12 +38,15 @@ export default class ExchangeForm extends BaseComponent {
 
 
     loadData() {
+        if (!this.userRoleAuth('roleSettings', 'settings')) {
+            return;
+        }
         let self = this;
         let {_id} = this.props.match.params;
         if (!_id || _id === 'new') {
             return;
         }
-        self.reqwest(`exchange/${_id}/edit`, {}, (err, data) => {
+        self.reqwest(`role/${_id}/edit`, {}, (err, data) => {
             if (data) {
                 self.setState({data, oldData: EJSON.clone(data)});
             }
@@ -110,6 +83,9 @@ export default class ExchangeForm extends BaseComponent {
 
     handleSubmit = (e) => {
         e.preventDefault();
+        if (!this.userRoleAuth('roleSettings', 'settings')) {
+            return Notification.error('No access permission');
+        }
         this.setState({commit: true});
         let {data = {}, fieldsMap} = this.state;
         if (!this.validateRequired(fieldsMap, data)) {
@@ -133,14 +109,14 @@ export default class ExchangeForm extends BaseComponent {
             title: '确定执行该修改操作吗',
             onOk() {
                 that.setState({loading: true, tip: '数据上传中....'});
-                that.reqwest(`exchange/${oldData._id}`, {method: 'put', data: {modifier}}, (err, res) => {
+                that.reqwest(`role/${oldData._id}`, {method: 'put', data: {modifier}}, (err, res) => {
                     that.setState({loading: false});
                     if (err) {
                         console.log(err);
                         return Notification.error(err.msg);
                     }
-                    Notification.success(`更新交易所信息成功!`);
-                    that.props.history.push('/exchange/info');
+                    Notification.success(`更新数据成功!`);
+                    that.props.history.push('/settings/role');
                 });
             },
             onCancel() {
@@ -155,14 +131,15 @@ export default class ExchangeForm extends BaseComponent {
             title: '确定信息无误提交保存吗？',
             onOk() {
                 that.setState({loading: true, tip: '数据上传中....'});
-                that.reqwest(`exchange`, {method: 'post', data}, (err, res) => {
+                that.reqwest(`role`, {method: 'post', data}, (err, res) => {
                     that.setState({loading: false});
                     if (err) {
                         console.log(err);
                         return Notification.error(err.msg);
                     }
-                    Notification.success(`新增交易所成功!`);
-                    that.props.history.push('/exchange/info');
+                    console.log(res);
+                    Notification.success(`添加数据成功!`);
+                    that.props.history.push('/settings/role');
                 });
             },
             onCancel() {
@@ -179,20 +156,23 @@ export default class ExchangeForm extends BaseComponent {
             confirm({
                 title: '确定放弃保存？',
                 onOk() {
-                    that.props.history.push('/exchange/info');
+                    that.props.history.push('/settings/role');
                 },
                 onCancel() {
                 }
             });
         } else {
-            that.props.history.push('/exchange/info');
+            that.props.history.push('/settings/role');
         }
     };
 
     render() {
+        if (!this.userRoleAuth('roleSettings', 'settings')) {
+            return this.noAccessAuth();
+        }
         let {data, commit, loading, fieldsMap, tip = '数据加载中.....'} = this.state;
         let formProps = {
-            title: data && data._id ? `更新交易所信息 ${data._id}` : '新增交易所',
+            title: data && data._id ? `更新管理员角色 ${data._id}` : '新增管理员角色',
             fields: fieldsMap,
             dataSource: data,
             handleSubmit: this.handleSubmit,

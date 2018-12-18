@@ -78,7 +78,7 @@ const PublicForm = Form.create({
                                     }
                                     let _label = required ? '* ' + label : label;
 
-                                    let _validateHelp = _validateStatus === 'error' ? `${label}不能为空` : '';
+                                    let _validateHelp = _validateStatus === 'error' ? `${label} is required` : '';
                                     switch (type) {
                                         case 'input':
                                             return (
@@ -86,7 +86,7 @@ const PublicForm = Form.create({
                                                     validateStatus={_validateStatus} help={_validateHelp}
                                                     key={key + '_forItem'}>
                                                     {getFieldDecorator(key)(<Input disabled={disabled}
-                                                        placeholder={placeholder || `输入${label}`}/>)}
+                                                        placeholder={placeholder || `Input ${label}`}/>)}
                                                 </FormItem>
                                             );
                                         case 'select':
@@ -102,7 +102,7 @@ const PublicForm = Form.create({
                                                     {getFieldDecorator(key)(
                                                         <Select mode={mode} allowClear disabled={disabled}
                                                             key={`select_${key}`}
-                                                            placeholder={placeholder || `选择${label}${mode ? ' (可多选)' : ''}`}>
+                                                            placeholder={placeholder || `Select ${label}${mode ? ' (multi)' : ''}`}>
                                                             {children}
                                                         </Select>)
                                                     }
@@ -114,7 +114,7 @@ const PublicForm = Form.create({
                                                     validateStatus={_validateStatus}
                                                     help={_validateHelp}>
                                                     {getFieldDecorator(key)(<InputNumber disabled={disabled}
-                                                        placeholder={placeholder || `输入${label}`}
+                                                        placeholder={placeholder || `Input ${label}`}
                                                         style={{width: '100%'}}/>)}
                                                 </FormItem>
                                             );
@@ -128,7 +128,7 @@ const PublicForm = Form.create({
                                                             disabled={disabled}
                                                             showTime={showTime}
                                                             style={{width: '100%'}}
-                                                            placeholder={placeholder || `选择${label}`}
+                                                            placeholder={placeholder || `Select ${label}`}
                                                             format={showTime ? 'YYYY-MM-DD HH:mm' : 'YYYY-MM-DD'}/>)}
                                                 </FormItem>
                                             );
@@ -171,7 +171,7 @@ const PublicForm = Form.create({
                                                     {getFieldDecorator(key)(
                                                         <Cascader
                                                             options={options}
-                                                            placeholder={placeholder || `选择${label}`}
+                                                            placeholder={placeholder || `Select ${label}`}
                                                             showSearch
                                                         />
                                                     )}
@@ -187,7 +187,7 @@ const PublicForm = Form.create({
                                 handleSubmit &&
                                 _.isFunction(handleSubmit) &&
                                 <Button type="primary" className='btn-operate' htmlType="submit">
-                                    提交保存
+                                    Save
                                 </Button>
                             }
 
@@ -195,7 +195,7 @@ const PublicForm = Form.create({
                                 handleCancel &&
                                 _.isFunction(handleCancel) &&
                                 <Button type="primary" className='btn-operate' onClick={handleCancel}>
-                                    返 回
+                                    Return
                                 </Button>
                             }
                         </div>

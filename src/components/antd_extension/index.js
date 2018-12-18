@@ -36,16 +36,16 @@ let config = (type, description, message, placement, duration)=> {
 };
 
 let Notification = {
-    success(description, message = '处理提示!', placement = 'topRight', duration = 4.5){
+    success(description, message = 'Message!', placement = 'topRight', duration = 4.5){
         notification.success(config('success', description, message, placement, duration))
     },
-    error(description, message = '错误提示!', placement = 'topRight', duration = 4.5){
+    error(description, message = 'Error!', placement = 'topRight', duration = 4.5){
         notification.success(config('error', description, message, placement, duration))
     },
-    info(description, message = '消息提示!', placement = 'topRight', duration = 4.5){
+    info(description, message = 'Info!', placement = 'topRight', duration = 4.5){
         notification.success(config('info', description, message, placement, duration))
     },
-    warning(description, message = '警告提示!', placement = 'topRight', duration = 4.5){
+    warning(description, message = 'Warning!', placement = 'topRight', duration = 4.5){
         notification.success(config('warning', description, message, placement, duration))
     }
 };

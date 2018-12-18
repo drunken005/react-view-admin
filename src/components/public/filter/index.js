@@ -1,6 +1,5 @@
 import React from 'react';
 import _ from 'lodash';
-import BaseComponent from '../../BaseComponent'
 import {Input, Select, DatePicker, Button, Cascader,Switch} from 'antd';
 import {DateApis} from '../../../lib/apis'
 import DateRangePicker from './range_picker';
@@ -8,13 +7,15 @@ import './index.css';
 
 const Option = Select.Option;
 
-export default class Filter extends BaseComponent {
+export default class Filter extends React.Component {
     constructor (props) {
         super(props);
         this.state = {
             search: {}
         };
-        this.bindCtx('changeFunc', 'dateRangePickerChange');
+        // this.bindCtx('changeFunc', 'dateRangePickerChange');
+        this.changeFunc = this.changeFunc.bind(this);
+        this.dateRangePickerChange = this.dateRangePickerChange.bind(this);
     }
 
     switchOnChange (value, key) {
@@ -74,7 +75,7 @@ export default class Filter extends BaseComponent {
             let dataFormat = format === 'time' ? 'YYYY-MM-DD HH:mm:ss' : 'YYYY-MM-DD';
             switch (type) {
                 case 'input_text':
-                    placeholder = placeholder || `输入${label}`;
+                    placeholder = placeholder || `Input ${label}`;
                     return (
                         <span className="search_span" key={key + index}>
                             <label>{label}</label>
@@ -85,7 +86,7 @@ export default class Filter extends BaseComponent {
                     return (
                         <span className="search_span" key={key + index}>
                              <label>{label}</label>
-                             <Select allowClear defaultValue={defaultValue} placeholder={`选择${label}`} onChange={(value)=> {
+                             <Select allowClear defaultValue={defaultValue} placeholder={`Select ${label}`} onChange={(value)=> {
                                  that.selectChange(value, key)
                              }} id={key}>
                                   <Option value=""> </Option>

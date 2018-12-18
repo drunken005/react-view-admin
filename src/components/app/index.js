@@ -1,35 +1,15 @@
 import './index.css';
+import logo from '../../public/images/logo-o.png';
 import React from 'react';
 import BaseComponent from '../BaseComponent';
-import {Layout, Menu, Icon, Breadcrumb} from 'antd';
+import {Layout, Menu, Icon, Breadcrumb, Dropdown, message} from 'antd';
 import {Link, Redirect} from 'react-router-dom';
-import {UserApis} from '../../lib/apis';
+import {UserApis, RoleApi} from '../../lib/apis';
 import {CXP_MENUS} from '../../lib/menu';
 
 const {Header, Sider, Content} = Layout;
 const SubMenu = Menu.SubMenu;
 const MenuItemGroup = Menu.ItemGroup;
-
-const formatMenu = ({_id, roles = []}) => {
-    const doMenu = (mList = [], parent = {}) => {
-        mList.forEach((menu) => {
-            let limit = [];
-            let {route = '', children} = menu;
-            let role = route.replace(/\//g, '').toLowerCase();
-            if (roles.includes(role) || !role || roles.includes('admin')) {
-                parent.limit = limit = [_id];
-            }
-
-            menu.limit = limit;
-
-            if (children) {
-                return doMenu(children, menu);
-            }
-        });
-    };
-
-    return doMenu(CXP_MENUS);
-};
 
 
 class App extends BaseComponent {
@@ -40,20 +20,28 @@ class App extends BaseComponent {
             collapsed: false,
             refreshMenu: false,
             mode: 'inline',
-            login: false,
-            selectMenu: ['HOME']
+            selectMenu: ['HOME'],
+            loginOut: false
         };
 
-        this.bindCtx('onCollapse', 'handleClick', 'toggle','onSelect');
-
+        this.bindCtx('onCollapse', 'handleClick', 'toggle', 'onSelect', 'loginOut');
     }
-
 
     componentWillMount() {
-        let {_id} = UserApis.getItem('user');
-        formatMenu({_id, roles: ['admin']});
     }
 
+    signOut() {
+        let {_id} = UserApis.userProfile();
+        this.reqwest(`user/loginout`, {method: 'post', data: {userId: _id}}, (err, data) => {
+            if (err) {
+                return message.error(err.msg);
+            }
+            if (data) {
+                localStorage.clear();
+                this.setState({loginOut: true});
+            }
+        });
+    }
 
     onCollapse(collapsed) {
         this.setState({
@@ -75,8 +63,8 @@ class App extends BaseComponent {
         });
     }
 
-    onSelect ({key}) {
-        let keys = key.split('_');
+    onSelect(select) {
+        let keys = select.key.split('_');
         let selectMenu = [];
         if (keys.length === 1) {
             selectMenu.push(CXP_MENUS[keys[0]].name);
@@ -97,15 +85,33 @@ class App extends BaseComponent {
         }
         let {children} = this.props;
         let {collapsed, mode, selectMenu} = this.state;
-        let {username} = UserApis.userProfile();
-        let {_id} = UserApis.getItem('user');
-        const isLimit = (limit = []) => !limit.includes(_id);
+        let {username, name} = UserApis.userProfile();
+        const menu = (
+            <Menu>
+                <Menu.Item>
+                    <div>Signed in as <b>{username}</b></div>
+                </Menu.Item>
+                <Menu.Divider/>
+                <Menu.Item onClick={() => {
+                    this.signOut()
+                }}>
+                    <span>退出登录</span>
+                </Menu.Item>
+            </Menu>
+        );
         return (
             <Layout>
                 <Header>
-                    <div className='header-a'>COINXP</div>
-                    <div className='header-b'>EXCHANGE MS</div>
-                    <span style={{float: 'right'}}>{username}</span>
+                    <div className='header-a'><img src={logo} alt='logo'/></div>
+                    <div className='header-b'>DEMO</div>
+
+                    <Dropdown overlay={menu} trigger={['click']} placement="bottomCenter">
+                        <span className="ant-dropdown-link"
+                              style={{float: 'right', cursor: 'pointer'}}>{name || username} <Icon
+                            type="down"/></span>
+                    </Dropdown>
+                    {/*<span style={{float: 'right'}}>{username}</span>*/}
+
                 </Header>
                 <Layout style={{height: '100%', width: '100%', position: 'fixed', top: 50, left: 0}}>
                     <Sider collapsed={collapsed} onCollapse={this.onCollapse}>
@@ -119,10 +125,12 @@ class App extends BaseComponent {
                                           type={collapsed ? 'menu-unfold' : 'menu-fold'}/>
                             }
                         </div>
-                        <Menu theme="dark" mode={mode} inlineCollapsed={collapsed}  defaultSelectedKeys={['0']} onSelect={this.onSelect} onClick={this.handleClick}>
+                        <Menu theme="dark" mode={mode} inlineCollapsed={collapsed} defaultSelectedKeys={['0']}
+                              onSelect={this.onSelect} onClick={this.handleClick}>
                             {
-                                CXP_MENUS.map(({icon, name, route, role, children, limit}, index) => {
-                                    if (isLimit(limit)) return "";
+                                CXP_MENUS.map(({icon, name, route, role, children, auth}, index) => {
+
+                                    if (!RoleApi.userRoleAuth(role, role) && role !== 'all') return "";
 
                                     if (!children || !children.length) {
                                         return (
@@ -137,13 +145,13 @@ class App extends BaseComponent {
                                         )
                                     } else {
                                         return (
-                                            <SubMenu key={index}
-                                                     title={<p className="sub-menu-p"><Icon
-                                                         type={icon}/><span>{name}</span>
-                                                     </p>}>
+                                            <SubMenu key={index} title={
+                                                <p className="sub-menu-p">
+                                                    <Icon type={icon}/><span>{name}</span>
+                                                </p>}>
                                                 {
                                                     children.map((two_menu, two_index) => {
-                                                        if (isLimit(two_menu.limit)) return "";
+                                                        if (!RoleApi.userRoleAuth(two_menu.role, role)) return "";
 
                                                         if (two_menu.isGroup) {
                                                             return (
@@ -153,7 +161,7 @@ class App extends BaseComponent {
                                                                         two_menu.children &&
                                                                         two_menu.children.length &&
                                                                         two_menu.children.map((three_menu, three_index) => {
-                                                                            if (isLimit(three_menu.limit)) return "";
+                                                                            if (!auth) return "";
 
                                                                             return (
                                                                                 <Menu.Item key={[
@@ -181,7 +189,7 @@ class App extends BaseComponent {
                                                                         two_menu.children &&
                                                                         two_menu.children.length &&
                                                                         two_menu.children.map((three_menu, three_index) => {
-                                                                            if (isLimit(three_menu.limit)) return "";
+                                                                            if (!RoleApi.userRoleAuth(three_menu.role, role)) return "";
 
                                                                             return (
                                                                                 <Menu.Item
@@ -222,14 +230,18 @@ class App extends BaseComponent {
                         </Menu>
                     </Sider>
                     <Content className={collapsed ? 'vertical-content' : 'inline-content'}>
-                        <div style={{background: '#ffff', height: '100%'}}>
-                            <Breadcrumb className="cxp-breadcrumb">
-                                {
-                                    selectMenu && selectMenu.length && selectMenu.map((item, index)=> {
-                                        return (<Breadcrumb.Item key={'b_i' + index}>{item}</Breadcrumb.Item>)
-                                    })
-                                }
-                            </Breadcrumb>
+                        <div style={{background: '#ffff'}}>
+                            {
+                                selectMenu && selectMenu.length && selectMenu.indexOf('主页') < 0 ?
+                                    <Breadcrumb className="cxp-breadcrumb">
+                                        {
+                                            selectMenu && selectMenu.length && selectMenu.map((item, index) => {
+                                                return (<Breadcrumb.Item key={index}>{item}</Breadcrumb.Item>)
+                                            })
+                                        }
+                                    </Breadcrumb> : null
+                            }
+
                             <div style={{padding: 10}}>
                                 {children}
                             </div>

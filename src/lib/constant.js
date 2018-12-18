@@ -17,12 +17,32 @@ export const CONSTANTS = {
         pagination: false,
         size: 'small',
         showHeader: true,
-        rowSelection: {type: 'checkbox'},
+        rowSelection: true,
         exportExcel: true,
         a_pagination: true
     },
-    EXCHANGE_STATUS: {
+
+    PAGINATION_CONFIG: {
+        owQuickJumper: true,
+        showSizeChanger: true,
+        defaultCurrent: 1,
+        pageSizeOptions: ['10', '15', '20', '30', '50', '100', '150', '200'],
+        style: {marginTop: 10, fontSize: 12},
+        showTotal: (total) => (`Total ${total} `)
+    },
+
+    ACCOUNT_STATUS: {
         normal: '正常',
-        freeze: '冻结'
+        disable: '禁用'
+    },
+
+    OPLOG_COLLECTION: {
+        users: '系统账号'
+    },
+    OPLOG_ACIONS: {
+        insert: '新增',
+        update: "更新",
+        remove: '删除',
+        login: '登录'
     }
 };

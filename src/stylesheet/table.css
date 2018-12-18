@@ -35,3 +35,8 @@
     background-color: #373d41;
     border-color: #373d41;
 }
+
+.cxp_table .ant-table-thead > tr > th.ant-table-selection-column, .ant-table-tbody > tr > td.ant-table-selection-column{
+    min-width: 40px !important;
+    width: 40px !important;
+}
